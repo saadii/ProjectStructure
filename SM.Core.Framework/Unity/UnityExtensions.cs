@@ -32,13 +32,13 @@ namespace SM.Core.Framework.Unity
         /// <param name="container"></param>
         public static void RegisterMappingProfilesFromAssembly(IUnityContainer container)
         {
-            IEnumerable<Type> autoMapperProfileTypes = AllClasses.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
-                           .Where(type => type != typeof(Profile) && typeof(Profile).IsAssignableFrom(type));
+            //IEnumerable<Type> autoMapperProfileTypes = AllClasses.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
+            //               .Where(type => type != typeof(Profile) && typeof(Profile).IsAssignableFrom(type));
 
-            foreach (var type in autoMapperProfileTypes)
-            {
-                RegisterMappingProfile(container, type);
-            }
+            //foreach (var type in autoMapperProfileTypes)
+            //{
+            //    RegisterMappingProfile(container, type);
+            //}
         }
 
         /// <summary>
@@ -75,16 +75,16 @@ namespace SM.Core.Framework.Unity
         /// <param name="container"></param>
         public static void RegisterMapper(this IUnityContainer container)
         {
-            container.RegisterType<IConfigurationProvider>(new ContainerControlledLifetimeManager(), new InjectionFactory(c =>
-            {
-                var configuration = new ConfigurationStore(new TypeMapFactory(), MapperRegistry.Mappers);
-                configuration.ConstructServicesUsing(t => container.Resolve(t));
-                foreach (var profile in c.ResolveAll<Profile>())
-                    configuration.AddProfile(profile);
-                return configuration;
-            }
-            ));
-            container.RegisterType<IMappingEngine, MappingEngine>(new ContainerControlledLifetimeManager(), new InjectionConstructor(typeof(IConfigurationProvider)));
+            //container.RegisterType<IConfigurationProvider>(new ContainerControlledLifetimeManager(), new InjectionFactory(c =>
+            //{
+            //    var configuration = new ConfigurationStore(new TypeMapFactory(), MapperRegistry.Mappers);
+            //    configuration.ConstructServicesUsing(t => container.Resolve(t));
+            //    foreach (var profile in c.ResolveAll<Profile>())
+            //        configuration.AddProfile(profile);
+            //    return configuration;
+            //}
+            //));
+            //container.RegisterType<IMappingEngine, MappingEngine>(new ContainerControlledLifetimeManager(), new InjectionConstructor(typeof(IConfigurationProvider)));
         }
     }
 }
